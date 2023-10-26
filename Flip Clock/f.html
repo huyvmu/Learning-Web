@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flip Clock</title>
+  <style>
+    .flip-clock {
+      width: 200px;
+      height: 100px;
+      margin: 0 auto;
+    }
+
+    .digit {
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .digit.flipping {
+      transition: all 0.5s ease-in-out;
+      transform: translateY(-50px);
+    }
+  </style>
+</head>
+<body>
+  <div class="flip-clock">
+    <div class="digit" id="hour"></div>
+    <div class="digit" id="minute"></div>
+    <div class="digit" id="second"></div>
+  </div>
+
+  <script>
+    // Get the current time.
+var date = new Date();
+var hours = date.getHours();
+var minutes = date.getMinutes();
+var seconds = date.getSeconds();
+
+// Update the clock with the current time.
+document.getElementById("hour").textContent = hours;
+document.getElementById("minute").textContent = minutes;
+document.getElementById("second").textContent = seconds;
+
+// Animate the flipping of the digits.
+function flipDigit(digit) {
+  // Get the current value of the digit.
+  var currentDigit = digit.textContent;
+
+  // Increment the digit value.
+  var nextDigit = (currentDigit + 1) % 10;
+
+  // Add the flipping class to the digit.
+  digit.classList.add("flipping");
+
+  // Update the digit value.
+  digit.textContent = nextDigit;
+
+  // Remove the flipping class from the digit after half a second.
+  setTimeout(function() {
+    digit.classList.remove("flipping");
+  }, 500);
+}
+
+// Set an interval to update the clock every second.
+setInterval(function() {
+  flipDigit(document.getElementById("hour"));
+  flipDigit(document.getElementById("minute"));
+  flipDigit(document.getElementById("second"));
+}, 1000);
+  </script>
